@@ -2,13 +2,17 @@ name: Call other workflow
 
 on:
   push:
+#  pull_request_review:
+#    types: [ submitted ]
 
 jobs:
-#  call-workflow-1-in-local-repo:
-#    uses: octo-org/this-repo/.github/workflows/workflow-1.yml@172239021f7ba04fe7327647b213799853a9eb89
   call-workflow-2-in-local-repo:
     uses: ./.github/workflows/workflow-B.yml
     with:
       username: "this-is-the-username"
-#  call-workflow-in-another-repo:
-#    uses: octo-org/another-repo/.github/workflows/workflow.yml@v1
+
+  call-on-approved-pr-only:
+    if: github.event.review.state == 'approved'
+    uses: ./.github/workflows/workflow-B.yml
+      with:
+        username: "I am a Pull Request with successful review"
