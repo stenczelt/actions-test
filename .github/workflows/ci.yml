@@ -12,9 +12,7 @@ env:
 jobs:
 
   reusable_workflow_job:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: stenczelt/actions-test/.github/actions/my-action/action.yml@main
-        with:
-          username: ${{ inputs.username }}
-          token: ${{ secrets.envPAT }}
+    uses: ./.github/actions/my-action/action.yml
+    with:
+      username: ${{ inputs.username }}
+      token: ${{ secrets.envPAT }}
