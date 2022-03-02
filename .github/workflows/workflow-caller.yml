@@ -11,8 +11,14 @@ jobs:
     with:
       username: "this-is-the-username"
 
+  approved:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This PR was approved"
+
   call-on-approved-pr-only:
     if: github.event.review.state == 'approved'
     uses: ./.github/workflows/workflow-B.yml
-      with:
-        username: "I am a Pull Request with successful review"
+    with:
+      username: "I am a Pull Request with successful review"
