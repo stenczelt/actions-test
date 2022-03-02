@@ -1,4 +1,4 @@
-# .github/actions/my-action.yml
+# .github/actions/action.yml
 # Note the special trigger 'on: workflow_call:'
 
 on:
