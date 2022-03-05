@@ -11,6 +11,7 @@ jobs:
     uses: ./.github/workflows/workflow-B.yml
     with:
       username: "this-is-the-username"
+    secrets:
       CODECOV_TOKEN: "this-is-the-CODECOV_TOKEN"
 
   approved:
@@ -24,4 +25,5 @@ jobs:
     uses: ./.github/workflows/workflow-B.yml
     with:
       username: "I am a Pull Request with successful review"
+    secrets:
       CODECOV_TOKEN: "this-is-the-CODECOV_TOKEN"
