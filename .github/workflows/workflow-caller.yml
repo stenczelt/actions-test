@@ -2,14 +2,16 @@ name: Call other workflow
 
 on:
   push:
-#  pull_request_review:
-#    types: [ submitted ]
+    workflows: ["build1"]
+  pull_request_review:
+    types: [ submitted ]
 
 jobs:
   call-workflow-2-in-local-repo:
     uses: ./.github/workflows/workflow-B.yml
     with:
       username: "this-is-the-username"
+      CODECOV_TOKEN: "this-is-the-CODECOV_TOKEN"
 
   approved:
     if: github.event.review.state == 'approved'
@@ -22,3 +24,4 @@ jobs:
     uses: ./.github/workflows/workflow-B.yml
     with:
       username: "I am a Pull Request with successful review"
+      CODECOV_TOKEN: "this-is-the-CODECOV_TOKEN"

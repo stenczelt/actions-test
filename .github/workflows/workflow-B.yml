@@ -6,9 +6,9 @@ on:
       username:
         required: true
         type: string
-#    secrets:
-#      token:
-#        required: true
+    secrets:
+      CODECOV_TOKEN:
+        required: true
 
 jobs:
   example_job:
@@ -21,3 +21,7 @@ jobs:
 #          token: ${{ secrets.token }}
       - name: check Python code with Black
         run: echo "Hello World!" ${{ inputs.username }}
+
+      # NOT SUITABLE FOR PRODUCTION
+      - name: check the 'secret' value
+        run: echo ${{ secrets.CODECOV_TOKEN }}
