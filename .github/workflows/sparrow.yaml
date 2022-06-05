@@ -1,0 +1,48 @@
+name: Sparrow installation
+
+on:
+  push:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies / apt-get
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y \
+            cmake \
+            libeigen3-dev \
+            libboost-all-dev \
+            --
+
+      - name: Download Sparrow
+        working-directory: /opt
+        run: |
+          # clone Sparrow
+          git clone https://github.com/qcscine/sparrow.git --branch=2.0.1 --single-branch --depth 1 --recursive
+
+      - name: Setup Sparrow for Installation
+        working-directory: /opt/sparrow
+        run: |
+          mkdir build install
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install -DSCINE_BUILD_PYTHON_BINDINGS=ON
+
+      - name: Build & Install Sparrow
+        working-directory: /opt/sparrow
+        run: |
+          cmake --build ./build
+          cmake --install ./build
+
+      - name: Sparrow path
+        run: |
+          export PATH="/opt/sparrow/install/bin:$PATH"
+          export PYTHONPATH=$PYTHONPATH:/opt/sparrow/install/lib/python3.9/site-packages
+          export SCINE_MODULE_PATH=/opt/sparrow/install/lib
