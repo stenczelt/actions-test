@@ -1,5 +1,10 @@
 # Hello world to test in actions
+import glob
+import abc
 
 
-if __name__ == '__main__':
+print(abc, glob)
+
+
+if __name__ == "__main__":
     print("Hello World!")
