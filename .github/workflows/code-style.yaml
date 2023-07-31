@@ -1,0 +1,25 @@
+name: Code style
+
+on:
+  push:
+
+env:
+  PYTHON_VERSION: "3.9"
+  BLACK_VERSION: "23.7.0"
+
+
+jobs:
+  black-formatting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{env.PYTHON_VERSION}}
+
+      - name: Install Black
+        run: pip install black==${{env.BLACK_VERSION}}
+
+      - name: Run Black
+        run: black . --check
